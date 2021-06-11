@@ -14,7 +14,6 @@ import kr.ac.konkuk.ccslab.cm.info.CMInfo;
 public class CMClientHandler implements CMAppEventHandler {
 	
 	private Controller control;
-	private String group;
 
 	public CMClientHandler(Controller controller) {
 		this.control = controller;
@@ -75,7 +74,7 @@ public class CMClientHandler implements CMAppEventHandler {
 				control.requestsession();
 			}
 		case CMSessionEvent.SESSION_TALK:
-			String s = se.getUserName() +" >> " + se.getTalk() + "\n";
+			String s = control.getPlayerNickname(se.getUserName())+ " >> " + se.getTalk() + "\n";
 			control.showChat(s);
 			//System.out.println("check1 : " + s);
 			break;
@@ -94,7 +93,7 @@ public class CMClientHandler implements CMAppEventHandler {
 		CMInterestEvent ie = (CMInterestEvent) cme;
 		switch(ie.getID()) {
 		case CMInterestEvent.USER_TALK:
-			String s = ie.getUserName() +" >> " + ie.getTalk() + "\n";
+			String s = control.getPlayerNickname(ie.getUserName())+" >> " + ie.getTalk() + "\n";
 			control.showChat(s);
 			//System.out.println("check1 : " + s);
 			break;

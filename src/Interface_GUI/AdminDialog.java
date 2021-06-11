@@ -14,7 +14,7 @@ import java.awt.event.WindowEvent;
 public class AdminDialog extends JDialog{
 
     JTextField idtf = new JTextField("",12);
-    JTextField nicknametf = new JTextField("",12);
+    JTextField nicknametf = new JTextField("플레이어",12);
     JPasswordField pwtf = new JPasswordField("",12);
     JButton ok = new JButton("OK");
     Container pane = this.getContentPane();

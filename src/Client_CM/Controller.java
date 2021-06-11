@@ -20,7 +20,7 @@ import kr.ac.konkuk.ccslab.cm.info.CMInteractionInfo;
 import kr.ac.konkuk.ccslab.cm.stub.CMClientStub;
 
 public class Controller {
-	final int start_time = 10;
+	final int start_time = 60;
 	//속성
 	int status; // 0-밤,1-낮,2-투표시간,3-최후변론,4-찬반투표,5-게임진행x
 	private User user = null;
@@ -34,18 +34,6 @@ public class Controller {
 	private CMClientStub m_clientStub;
 	private CMClientHandler m_eventHandler;
 	private boolean loginsend = false;
-	
-	public Controller(String userID, String nickname) {
-		this.status = 5;
-		now_UI = new MainFrame(this);
-		this.user = new User(userID,nickname,"");
-		m_clientStub = new CMClientStub();
-		m_eventHandler = new CMClientHandler(this);
-		m_clientStub.setAppEventHandler(m_eventHandler);
-		m_clientStub.startCM();
-		this.m_clientStub.loginCM(userID, "testUser");
-	}
-	///////////////
 	public Controller(String userID, String nickname, String password) {
 		this.status = 5;
 		this.user = new User(userID,nickname,password);
@@ -53,8 +41,9 @@ public class Controller {
 		m_eventHandler = new CMClientHandler(this);
 		m_clientStub.setAppEventHandler(m_eventHandler);
 		m_clientStub.startCM();
-		this.m_clientStub.loginCM(userID, password);
-		now_UI = new MainFrame(this);
+		boolean isLogin = this.m_clientStub.loginCM(userID, password);
+		if(isLogin)
+			now_UI = new MainFrame(this);
 	}
 	public void requestsession() {
 		// TODO Auto-generated method stub
@@ -302,7 +291,8 @@ public class Controller {
 	}
 	
 	public void pro_ability(boolean result, String player_ID, int job) {
-		((GameFrame)now_UI).AbilityResult(result, player_ID, job);
+		String nickname = this.getPlayerNickname(player_ID);
+		((GameFrame)now_UI).AbilityResult(result, nickname, job);
 	}
 	public void sendExitGameMessage() {
 		// TODO Auto-generated method stub
@@ -396,5 +386,15 @@ public class Controller {
 			}
 		}
 	}
-	
+	public String getPlayerNickname(String player_ID) {
+		if(this.player != null && player.getUserID().equals(player_ID))
+			return this.player.getNickname();
+		else {
+			for(int i = 0; i < this.otherPlayers.size(); i++) {
+				if(this.otherPlayers.elementAt(i).getUserID().equals(player_ID))
+					return this.otherPlayers.elementAt(i).getNickname();
+			}
+		}
+		return "NOT FOUND";
+	}
 }

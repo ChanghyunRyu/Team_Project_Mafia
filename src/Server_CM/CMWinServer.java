@@ -2151,13 +2151,13 @@ public class CMWinServer extends JFrame {
 		printMessage("[playersize]:" + room.getPlayerNumber());
 		gameStartResult.setHandlerGroup(group);
 		gameStartResult.setHandlerSession(session);
-		room.moderator.assignJob(room,room.getPlayerNumber());
 		String dummyStr;
 		if(room.getPlayerNumber() == 8) {
+			room.moderator.assignJob(room,room.getPlayerNumber());
 			room.setOn(true);
 			dummyStr = "gameStart#true";
 			printMessage("\n[cast]:" + group + "," + session+"\n");
-			Timer timer = new Timer(25,"chgstatus#2#" + room_ID+"#"+25);
+			Timer timer = new Timer(60,"chgstatus#2#" + room_ID+"#"+45);
 			timer.setServer(this);
 		}else {
 			dummyStr = "gameStart#false";
@@ -2185,20 +2185,19 @@ public class CMWinServer extends JFrame {
 		changeStatus.setHandlerSession(session);
 		m_serverStub.cast(changeStatus, session, group);
 		Timer timer;
-		int nextSec = 50;
 		switch(status) {
 		case 0:
 			vote_result(room_ID);
-			timer = new Timer(25,"chgstatus#1#" + room_ID + "#" + 40);
+			timer = new Timer(45,"chgstatus#1#" + room_ID + "#" + 50);
 			timer.setServer(this);
 			break;
 		case 1:
 			result_ability(room_ID, group, session);
-			timer = new Timer(40,"chgstatus#2#" + room_ID + "#" + 30);
+			timer = new Timer(50,"chgstatus#2#" + room_ID + "#" + 45);
 			timer.setServer(this);
 			break;
 		case 2:
-			timer = new Timer(30,"chgstatus#0#" + room_ID + "#" + 25);
+			timer = new Timer(45,"chgstatus#0#" + room_ID + "#" + 45);
 			timer.setServer(this);
 			break;
 		}
@@ -2245,7 +2244,6 @@ public class CMWinServer extends JFrame {
 	//1 : 시민, 2 : 의사, 3: 경찰, 4: 마피아
 	public void process_ability(String sender,String group, String session, int room_ID, int job, String user_ID) {
 		Room room = this.storage.getRoom(room_ID);
-		
 		boolean result;
 		int ans;
 		switch(job) {

@@ -76,6 +76,7 @@ public class MainFrame extends JFrame{
 		frame.setBackground(Color.black);
 		this.setNorthBeginning();
 		this.setCenterBeginning();
+		this.setSouthBeginning();
 		frame.add(centerPanel,BorderLayout.CENTER);
 	}
 	private void setSouthBeginning() {
@@ -208,7 +209,6 @@ public class MainFrame extends JFrame{
 			}
 			
 		});
-		this.setSouthBeginning();
 		centerPanel.add(make_room_btn);
 		centerPanel.add(room_in_btn);
 		centerPanel.add(exit_btn);
