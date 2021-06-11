@@ -2157,7 +2157,7 @@ public class CMWinServer extends JFrame {
 			room.setOn(true);
 			dummyStr = "gameStart#true";
 			printMessage("\n[cast]:" + group + "," + session+"\n");
-			Timer timer = new Timer(60,"chgstatus#2#" + room_ID+"#"+45);
+			Timer timer = new Timer(61,"chgstatus#2#" + room_ID+"#"+45);
 			timer.setServer(this);
 		}else {
 			dummyStr = "gameStart#false";
@@ -2188,16 +2188,16 @@ public class CMWinServer extends JFrame {
 		switch(status) {
 		case 0:
 			vote_result(room_ID);
-			timer = new Timer(45,"chgstatus#1#" + room_ID + "#" + 50);
+			timer = new Timer(46,"chgstatus#1#" + room_ID + "#" + 50);
 			timer.setServer(this);
 			break;
 		case 1:
 			result_ability(room_ID, group, session);
-			timer = new Timer(50,"chgstatus#2#" + room_ID + "#" + 45);
+			timer = new Timer(51,"chgstatus#2#" + room_ID + "#" + 45);
 			timer.setServer(this);
 			break;
 		case 2:
-			timer = new Timer(45,"chgstatus#0#" + room_ID + "#" + 45);
+			timer = new Timer(46,"chgstatus#0#" + room_ID + "#" + 45);
 			timer.setServer(this);
 			break;
 		}
